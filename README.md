@@ -1,6 +1,6 @@
 <h1 align="center"> Привет! Я <a target="_blank"> Кармеев Артур из группы ЭФМО-01-25 </a> 
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
-<h3 align="center"> Данная практика была простой :wink: </h3>
+<h3 align="center"> Данная практика была в порядке вещей :wink: </h3>
 
 <h3 align="center"> Практическая работа №11: Создание GraphQL API с использованием gqlgen. Запросы и мутации </h3>
 
