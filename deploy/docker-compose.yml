@@ -3,7 +3,8 @@ version: "3.9"
 services:
   tasks:
     build:
-      context: ../services/tasks
+      context: ..
+      dockerfile: services/tasks/Dockerfile
     container_name: tasks_service
     ports:
       - "8082:8082"

@@ -5,6 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"example.com/pz11-graphql/internal/httpapi"
+	"example.com/pz11-graphql/internal/service"
+	"example.com/pz11-graphql/internal/task"
 )
 
 func main() {
@@ -12,6 +16,10 @@ func main() {
 	if port == "" {
 		port = "8082"
 	}
+
+	repo := task.NewRepo()
+	taskService := service.NewTaskService(repo)
+	handler := httpapi.NewHandler(taskService)
 
 	mux := http.NewServeMux()
 
@@ -21,6 +29,20 @@ func main() {
 			"status":  "ok",
 			"service": "tasks",
 		})
+	})
+
+	mux.HandleFunc("/v1/tasks", handler.GetTasks)
+	mux.HandleFunc("/v1/tasks/", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			handler.GetTaskByID(w, r)
+		case http.MethodPatch:
+			handler.PatchTask(w, r)
+		case http.MethodDelete:
+			handler.DeleteTask(w, r)
+		default:
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
 	})
 
 	addr := ":" + port
